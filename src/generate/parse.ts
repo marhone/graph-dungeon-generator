@@ -1,16 +1,16 @@
-import { InputDungeon, Node, Room, RoomId } from "../types";
+import { InputDungeon, DGNode, Room, RoomId } from "../types";
 
-export function parseInputDungeon(dungeon: InputDungeon): Node<Room> {
+export function parseInputDungeon(dungeon: InputDungeon): DGNode<Room> {
   return createRoomNode(dungeon, "start");
 }
 
-function createRoomNode(dungeon: InputDungeon, roomId: RoomId): Node<Room> {
+function createRoomNode(dungeon: InputDungeon, roomId: RoomId): DGNode<Room> {
   const room = dungeon[roomId];
   if (!room) {
     throw new Error(`Could not find "${roomId}" to generate tree.`);
   }
 
-  const node = new Node<Room>({
+  const node = new DGNode<Room>({
     id: room.id,
     type: room.type,
   });

@@ -12,7 +12,7 @@ import {
   Dimensions,
   Direction,
   InputDungeon,
-  Node,
+  DGNode,
   Room,
   Vector2,
 } from "../types";
@@ -31,7 +31,7 @@ import {
  * Entrypoint method to generate the rooms and corridors
  * based on a provided graph file.
  */
-export function generate(dungeon: InputDungeon): Node<Room> {
+export function generate(dungeon: InputDungeon): DGNode<Room> {
   const rootNode = parseInputDungeon(dungeon);
 
   placeRooms(rootNode);
@@ -43,17 +43,17 @@ export function generate(dungeon: InputDungeon): Node<Room> {
 //
 // Generate
 //
-function placeRooms(rootNode: Node<Room>) {
+function placeRooms(rootNode: DGNode<Room>) {
   // Create collisions manager
   const aabbManager = new AABBManager();
 
   // Initialize the queue with the root node
-  const queue: Node<Room>[] = [rootNode];
+  const queue: DGNode<Room>[] = [rootNode];
   let backTrackIterations = ROOM_BACKTRACK_ITERATIONS_MAX;
 
   // Treat all the nodes we add to the queue (Breadth-First Search)
   while (queue.length > 0) {
-    const node = queue.shift() as Node<Room>;
+    const node = queue.shift() as DGNode<Room>;
 
     // Attempt to place room and corridor
     try {
@@ -99,7 +99,7 @@ function placeRooms(rootNode: Node<Room>) {
 
 function placeRoom(
   aabbManager: AABBManager,
-  node: Node<Room>,
+  node: DGNode<Room>,
   iterations: number = ROOM_ITERATIONS_MAX
 ) {
   if (iterations === 0) {
@@ -137,7 +137,7 @@ function placeRoom(
 
 function placeCorridor(
   aabbManager: AABBManager,
-  node: Node<Room>,
+  node: DGNode<Room>,
   iterations: number = CORRIDOR_ITERATIONS_MAX
 ) {
   if (!node.parent) {
@@ -175,7 +175,7 @@ function placeCorridor(
 //
 // Utils
 //
-function generateRoomDimensions(node: Node<Room>): Dimensions {
+function generateRoomDimensions(node: DGNode<Room>): Dimensions {
   // Note:
   // Instead of using random widths and heights to generate room
   // you could instead use a pool of existing, pre-made rooms that
@@ -208,7 +208,7 @@ function generateRoomDimensions(node: Node<Room>): Dimensions {
 }
 
 function generateRoomPosition(
-  node: Node<Room>,
+  node: DGNode<Room>,
   dimensions: Dimensions
 ): Vector2 {
   if (!dimensions) {
@@ -271,7 +271,7 @@ function generateRoomPosition(
   }
 }
 
-function generateCorridor(parent: Node<Room>, child: Node<Room>): Corridor {
+function generateCorridor(parent: DGNode<Room>, child: DGNode<Room>): Corridor {
   const parentBox = nodeRoomToAABB(parent);
   const childBox = nodeRoomToAABB(child);
 

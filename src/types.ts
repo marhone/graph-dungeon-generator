@@ -55,18 +55,18 @@ export type Room = {
 //
 // Graph - Node data structure.
 //
-export class Node<T> {
+export class DGNode<T> {
   value: T;
-  parent: Node<T> | null;
-  children: Node<T>[];
+  parent: DGNode<T> | null;
+  children: DGNode<T>[];
 
-  constructor(value: T, parent: Node<T> | null = null) {
+  constructor(value: T, parent: DGNode<T> | null = null) {
     this.value = value;
     this.children = [];
     this.parent = parent;
   }
 
-  public addChild(node: Node<T>) {
+  public addChild(node: DGNode<T>) {
     node.parent = this;
     this.children.push(node);
   }

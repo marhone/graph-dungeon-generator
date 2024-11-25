@@ -1,5 +1,5 @@
 import { TilesColors, TilesTypes } from "../config";
-import { Dimensions, Node, Room, Tile, Tiles } from "../types";
+import { Dimensions, DGNode, Room, Tile, Tiles } from "../types";
 import { getRoomCenter, traverseTree } from "../utils";
 import { initializeContext } from "./canvas";
 import { computeTilesMask } from "./mask";
@@ -27,7 +27,7 @@ interface DrawOptions {
  *
  * Note: all transformations to data are done by reference.
  */
-export function draw(rootNode: Node<Room>, options: DrawOptions = {}) {
+export function draw(rootNode: DGNode<Room>, options: DrawOptions = {}) {
   const { context, canvasDimensions } = initializeContext();
 
   const padding =
@@ -69,7 +69,7 @@ export function draw(rootNode: Node<Room>, options: DrawOptions = {}) {
 //
 // Carve
 //
-function carveRooms(tiles: Tiles, node: Node<Room>): Tiles {
+function carveRooms(tiles: Tiles, node: DGNode<Room>): Tiles {
   let copy = duplicateTilemap(tiles);
 
   traverseTree((node) => {
@@ -103,7 +103,7 @@ function carveRooms(tiles: Tiles, node: Node<Room>): Tiles {
   return copy;
 }
 
-function carveCorridors(tiles: Tiles, node: Node<Room>): Tiles {
+function carveCorridors(tiles: Tiles, node: DGNode<Room>): Tiles {
   let copy = duplicateTilemap(tiles);
 
   traverseTree((node) => {
@@ -155,7 +155,7 @@ function drawGrid(
 function drawConnections(
   context: CanvasRenderingContext2D,
   tileSize: number,
-  rootNode: Node<Room>
+  rootNode: DGNode<Room>
 ) {
   context.beginPath();
   context.lineWidth = 1.5;
@@ -179,7 +179,7 @@ function drawConnections(
 function drawRoomIds(
   context: CanvasRenderingContext2D,
   tileSize: number,
-  rootNode: Node<Room>
+  rootNode: DGNode<Room>
 ) {
   context.font = "16px Arial";
   context.fillStyle = "white";

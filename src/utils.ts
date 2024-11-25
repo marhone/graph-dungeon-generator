@@ -1,12 +1,12 @@
-import { Node, Room, Tiles, Vector2 } from "./types";
+import { DGNode, Room, Tiles, Vector2 } from "./types";
 
-export function traverseTree(fn: (node: Node<Room>) => void, node: Node<Room>) {
+export function traverseTree(fn: (node: DGNode<Room>) => void, node: DGNode<Room>) {
   fn(node);
 
   node.children.forEach((item) => traverseTree(fn, item));
 }
 
-export function getRoomCenter(node: Node<Room>): Vector2 {
+export function getRoomCenter(node: DGNode<Room>): Vector2 {
   const centerX =
     node.value.position!.x + Math.abs(node.value.dimensions!.width / 2);
   const centerY =

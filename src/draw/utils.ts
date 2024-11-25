@@ -1,4 +1,4 @@
-import { Dimensions, Node, Room, Tiles } from "../types";
+import { Dimensions, DGNode, Room, Tiles } from "../types";
 import { traverseTree } from "../utils";
 
 /**
@@ -60,7 +60,7 @@ export function padTilemap(
 /**
  * Pad a tree of nodes.
  */
-export function padNodes(rootNode: Node<Room>, padding: number) {
+export function padNodes(rootNode: DGNode<Room>, padding: number) {
   traverseTree((node) => {
     if (!node.value.position || !node.value.dimensions) {
       return;
@@ -80,7 +80,7 @@ export function padNodes(rootNode: Node<Room>, padding: number) {
  * Get the dungeon width and height in tiles unit.
  */
 export function getDungeonDimensions(
-  rootNode: Node<Room>,
+  rootNode: DGNode<Room>,
   padding: number
 ): Dimensions {
   let dimensions: Dimensions = {

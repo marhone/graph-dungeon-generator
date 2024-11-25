@@ -1,4 +1,4 @@
-import { Node, Room } from "../types";
+import { DGNode, Room } from "../types";
 
 export type AABB = {
   id: string;
@@ -51,7 +51,7 @@ export class AABBManager {
   }
 }
 
-export function toAABB(node: Node<Room>): AABB {
+export function toAABB(node: DGNode<Room>): AABB {
   const box: AABB = {
     id: node.value.id,
     startX: node.value.position!.x,

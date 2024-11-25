@@ -1,4 +1,4 @@
-import { Direction, Node, Room } from "../types";
+import { Direction, DGNode, Room } from "../types";
 import { traverseTree } from "../utils";
 import { AABB } from "./collisions";
 
@@ -26,7 +26,7 @@ export function clamp(value: number, min: number, max: number): number {
 /**
  * Transform a Node<Room> to a bounding box.
  */
-export function nodeRoomToAABB(node: Node<Room>): AABB {
+export function nodeRoomToAABB(node: DGNode<Room>): AABB {
   const box: AABB = {
     id: node.value.id,
     startX: node.value.position!.x,
@@ -41,7 +41,7 @@ export function nodeRoomToAABB(node: Node<Room>): AABB {
 /**
  * Normalize a node tree to avoid having negative positions.
  */
-export function normalizePositions(rootNode: Node<Room>) {
+export function normalizePositions(rootNode: DGNode<Room>) {
   let lowestX = 0;
   let lowestY = 0;
 
