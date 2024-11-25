@@ -37,6 +37,8 @@ export function generate(dungeon: InputDungeon): DGNode<Room> {
   placeRooms(rootNode);
   normalizePositions(rootNode);
 
+  console.log(">>>> ", rootNode);
+
   return rootNode;
 }
 
